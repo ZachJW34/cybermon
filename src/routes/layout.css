@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&display=swap');
+
+@import 'tailwindcss';
+
+@layer base {
+	:root {
+		--color-base: #000000;
+		--color-primary: #ffffff;
+		--color-accent: #cccccc;
+	}
+
+	.theme-blade {
+		--color-base: #050505;
+		--color-primary: #f8a143;
+		--color-accent: #64d8cb;
+	}
+
+	.theme-tron {
+		--color-base: #02040a;
+		--color-primary: #00f0ff;
+		--color-accent: #ff9e00;
+	}
+
+	.theme-bepop {
+		--color-base: rgba(20 21 32);
+		--color-primary: rgba(172 133 167);
+		--color-accent: rgba(195 117 81);
+	}
+
+	.theme-neuromancer {
+		--color-base: #000900;
+		--color-primary: #17f54e;
+		--color-accent: #d502ff;
+	}
+
+	.theme-akira {
+		--color-base: #0f0505;
+		--color-primary: #ff2a2a;
+		--color-accent: #ffc800;
+	}
+
+	:root,
+	.theme-blade,
+	.theme-tron {
+		--color-primary-50: color-mix(in srgb, var(--color-primary), white 90%);
+		--color-primary-100: color-mix(in srgb, var(--color-primary), white 80%);
+		--color-primary-200: color-mix(in srgb, var(--color-primary), white 60%);
+		--color-primary-300: color-mix(in srgb, var(--color-primary), white 40%);
+		--color-primary-400: color-mix(in srgb, var(--color-primary), white 20%);
+		--color-primary-500: var(--color-primary);
+		--color-primary-600: color-mix(in srgb, var(--color-primary), black 10%);
+		--color-primary-700: color-mix(in srgb, var(--color-primary), black 30%);
+		--color-primary-800: color-mix(in srgb, var(--color-primary), black 50%);
+		--color-primary-900: color-mix(in srgb, var(--color-primary), black 70%);
+		--color-primary-950: color-mix(in srgb, var(--color-primary), black 85%);
+	}
+
+	body {
+		font-family: 'Fira Code', monospace;
+		height: 100vh;
+		width: 100vw;
+		font-family: var(--font-mono);
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+}
+
+@theme {
+	--color-base: var(--color-base);
+	--color-primary: var(--color-primary);
+	--color-accent: var(--color-accent);
+
+	--font-mono: 'Fira Code', monospace;
+
+	--color-primary-50: var(--color-primary-50);
+	--color-primary-100: var(--color-primary-100);
+	--color-primary-200: var(--color-primary-200);
+	--color-primary-300: var(--color-primary-300);
+	--color-primary-400: var(--color-primary-400);
+	--color-primary-500: var(--color-primary-500);
+	--color-primary-600: var(--color-primary-600);
+	--color-primary-700: var(--color-primary-700);
+	--color-primary-800: var(--color-primary-800);
+	--color-primary-900: var(--color-primary-900);
+	--color-primary-950: var(--color-primary-950);
+}
+
+:root,
+.theme-blade,
+.theme-tron {
+	/* Lighter shades */
+	--color-primary-50: color-mix(in srgb, var(--color-primary), white 90%);
+	--color-primary-100: color-mix(in srgb, var(--color-primary), white 80%);
+	--color-primary-200: color-mix(in srgb, var(--color-primary), white 60%);
+	--color-primary-300: color-mix(in srgb, var(--color-primary), white 40%);
+	--color-primary-400: color-mix(in srgb, var(--color-primary), white 20%);
+
+	/* Base */
+	--color-primary-500: var(--color-primary);
+
+	/* Darker shades */
+	--color-primary-600: color-mix(in srgb, var(--color-primary), black 10%);
+	--color-primary-700: color-mix(in srgb, var(--color-primary), black 30%);
+	--color-primary-800: color-mix(in srgb, var(--color-primary), black 50%);
+	--color-primary-900: color-mix(in srgb, var(--color-primary), black 70%);
+	--color-primary-950: color-mix(in srgb, var(--color-primary), black 85%);
+}
+
+/* 4. The "Dot Grid" Background */
+.bg-grid-pattern {
+	/* Using gradients to draw dots instead of loading an image */
+	background-image: radial-gradient(var(--color-primary-950) 2px, var(--color-base) 1px);
+	background-size: 30px 30px;
+}
+
+/* 5. The CRT Scanline Overlay */
+.crt-overlay {
+	background: 
+    /* The horizontal scanlines */
+		linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+		/* The RGB sub-pixel separation effect */
+			linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+	background-size:
+		100% 2px,
+		3px 100%;
+	pointer-events: none;
+}
