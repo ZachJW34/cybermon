@@ -13,7 +13,7 @@
 	let dashOffset = $derived(220 - (props.value / props.max) * 220);
 </script>
 
-<div class="relative flex flex-col items-center justify-center">
+<div class="relative flex flex-1 flex-col items-center justify-center">
 	<h2 class="text-sm">{props.label}</h2>
 
 	<div class="relative flex h-16 w-16 items-center justify-center">

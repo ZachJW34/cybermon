@@ -21,7 +21,7 @@
 
 	// 1. Coordinate System
 	// Viewbox centered at 0,0
-	const vWidth = 150;
+	const vWidth = 155;
 	const vHeight = 110;
 	const viewbox = `${-vWidth / 2} ${-vHeight / 2} ${vWidth + 5} ${vHeight}`;
 
@@ -86,7 +86,7 @@
 	}
 
 	let classes = twMerge([
-		'relative w-full max-h-full aspect-[155/110] mx-auto flex items-center justify-center',
+		`relative w-full max-h-full aspect-[${vWidth}/${vHeight}] mx-auto flex items-center justify-center`,
 		restProps.class
 	]);
 </script>

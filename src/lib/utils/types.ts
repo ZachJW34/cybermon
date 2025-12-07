@@ -3,3 +3,5 @@ export type TupleOf<T, N extends number, R extends T[] = []> = R['length'] exten
 	: TupleOf<T, N, [...R, T]>;
 
 export type Vec4<T> = TupleOf<T, 4>;
+
+export type RestProps = { [key: string]: any };

@@ -36,6 +36,8 @@
 	},
 	"dependencies": {
 		"@tanstack/svelte-query": "^6.0.9",
-		"tailwind-merge": "^3.4.0"
+		"@types/node": "^24.10.1",
+		"tailwind-merge": "^3.4.0",
+		"uuid": "^13.0.0"
 	}
 }

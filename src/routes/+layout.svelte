@@ -14,7 +14,7 @@
 
 <QueryClientProvider client={queryClient}>
 	<main
-		class="{themeState.value} bg-grid-pattern relative h-dvh w-dvw bg-base text-primary selection:bg-primary selection:text-base"
+		class="{themeState.value} bg-grid-pattern relative h-dvh w-full overflow-hidden bg-base text-primary selection:bg-primary selection:text-base"
 	>
 		{@render children()}
 

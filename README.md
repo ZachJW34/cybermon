@@ -20,23 +20,13 @@ This project relies on **LibreHardwareMonitor** to fetch system statistics.
 
 ## Getting Started
 
-### 1. Configure Environment
-
-Create a `.env` file in the root directory of the project and set the API URL:
-
-```properties
-PUBLIC_LIBRE_HARDWARE_API=http://localhost:8085
-```
-
-(Replace localhost with your host IP if accessing from a different device)
-
-### 2. Install Dependencies
+### 1. Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-### 3. Run Development Server
+### 2. Run Development Server
 
 ```bash
 pnpm run dev
