@@ -8,19 +8,29 @@
 	import GpuWidget from '$lib/components/gpu-widget.svelte';
 	import NetworkWidget from '$lib/components/network-widget.svelte';
 	import StorageWidget from '$lib/components/storage-widget.svelte';
-	import type { Device } from '$lib/state/config.svelte';
+	import { configState, type Device } from '$lib/state/config.svelte';
 
 	let props: { device: Device } = $props();
 
 	const hwQuery = createQuery(() => ({
-		queryKey: ['libre-hardware'],
-		queryFn: () => fetchJson<LhmPayload>(props.device.url),
-		refetchInterval: 3000,
+		queryKey: [`libre-hardware-${props.device.url}`],
+		queryFn: () => fetchJson<LhmPayload>(props.device.url, { timeout: 1000 }),
+		refetchInterval: (query) => {
+			if (query.state.status === 'error') {
+				return false;
+			}
+
+			return 3000;
+		},
 		select(lhm) {
 			const snapshot = transformToSnapshot(lhm);
 			return snapshot;
 		}
 	}));
+
+	function editConfig() {
+		configState.setSelectedDevice(null);
+	}
 </script>
 
 {#if hwQuery.isLoading}
@@ -29,7 +39,9 @@
 	<div class="m-2 flex flex-col gap-2 border p-2 text-xs">
 		<div>Error fetching LibreHardware stats from {props.device.url}</div>
 		<div class="bg-primary/20 p-2">> {hwQuery.error}</div>
-		<div class="flex justify-end"><button class="border p-1">Edit Config</button></div>
+		<div class="flex justify-end">
+			<button class="border p-1" onclick={editConfig}>Edit Config</button>
+		</div>
 	</div>
 {:else if hwQuery.data}
 	{@const { cpu, gpus, memoryTotal, networks, name: deviceName, hdds } = hwQuery.data}
