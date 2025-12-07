@@ -60,9 +60,9 @@
 <div class={twMerge('ml-2 flex flex-col justify-center', restProps.class)}>
 	<WidgetTitle title="GPU" subtitle={gpu.name} class="justify-center" />
 
-	<div class="flex min-h-0 flex-1 flex-col justify-center gap-4">
-		<div class="flex min-h-0 w-full items-center justify-center">
-			<QuadGauge class="text-accent" values={quadGauge} />
+	<div class="flex flex-1 flex-col justify-center gap-4">
+		<div class="flex w-full flex-1 justify-center">
+			<QuadGauge class="h-full w-auto min-w-0 text-accent" values={quadGauge} />
 		</div>
 		<div class="flex flex-wrap content-center items-center gap-2">
 			{#each batteryGauges as bGauge}

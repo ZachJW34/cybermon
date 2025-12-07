@@ -12,6 +12,7 @@
 	let {
 		values,
 		strokeWidth = 6,
+		class: className,
 		...restProps
 	}: {
 		values: Vec4<QuadGaugeValue>;
@@ -19,20 +20,15 @@
 		[key: string]: any;
 	} = $props();
 
-	// 1. Coordinate System
-	// Viewbox centered at 0,0
-	const vWidth = 155;
+	const vWidth = 150;
 	const vHeight = 110;
-	const viewbox = `${-vWidth / 2} ${-vHeight / 2} ${vWidth + 5} ${vHeight}`;
+	const viewbox = `0 0 ${vWidth} ${vHeight}`;
 
-	// 2. Constants for 45 Degree Lock
-	// We use exactly 45 degrees for that clean diagonal look.
 	const angle = 45;
 	const radian = (angle * Math.PI) / 180;
 	const dx = Math.cos(radian); // ~0.707
 	const dy = Math.sin(radian); // ~0.707
 
-	// How far out the line extends from the center (0,0)
 	const lineLength = 60;
 
 	let rings = $derived([
@@ -73,98 +69,99 @@
 	function getConnectorCoords(ring: (typeof rings)[0]) {
 		const { x: dirX, y: dirY } = ring.corner;
 
-		// Start: Just outside the ring edge
 		const startRadius = ring.radius + 4;
 		const x1 = dirX * startRadius * dx;
 		const y1 = dirY * startRadius * dy;
 
-		// End: Fixed distance
 		const x2 = dirX * lineLength * dx;
 		const y2 = dirY * lineLength * dy;
 
 		return { x1, y1, x2, y2 };
 	}
 
-	let classes = twMerge([
-		`relative w-full max-h-full aspect-[${vWidth}/${vHeight}] mx-auto flex items-center justify-center`,
-		restProps.class
-	]);
+	let classes = twMerge([`flex items-center justify-center aspect-150/110`, className]);
 </script>
 
 <div {...restProps} class={classes}>
 	<svg
 		viewBox={viewbox}
 		preserveAspectRatio="xMidYMid meet"
-		class="block h-full w-full overflow-visible text-primary"
+		width="100%"
+		height="100%"
+		class="block"
 	>
-		{#each rings as ring}
-			{@const coords = getConnectorCoords(ring)}
+		<g transform={`translate(${vWidth / 2} ${vHeight / 2})`}>
+			{#each rings as ring}
+				{@const coords = getConnectorCoords(ring)}
 
-			<line
-				x1={coords.x1}
-				y1={coords.y1}
-				x2={coords.x2}
-				y2={coords.y2}
-				class="stroke-current stroke-[1px] text-accent"
-				stroke-dasharray="3 3"
-			/>
-			<g transform="translate({coords.x2}, {coords.y2})">
-				<text
-					x="-1"
-					y={ring.corner.y === 1 ? 8 : -2}
-					text-anchor="end"
-					fill="currentColor"
-					class="text-[8px] opacity-60"
-				>
-					{ring.gVal.label}:
-				</text>
-				<text
-					x="1"
-					y={ring.corner.y === 1 ? 8 : -2}
-					text-anchor="start"
-					fill="currentColor"
-					class="font-mono text-[8px]"
-				>
-					{ring.gVal.display}
-				</text>
-			</g>
-		{/each}
+				<line
+					x1={coords.x1}
+					y1={coords.y1}
+					x2={coords.x2}
+					y2={coords.y2}
+					class="stroke-current stroke-[1px] text-accent"
+					stroke-dasharray="3 3"
+				/>
 
-		{#each rings as ring}
-			{@const circumference = 2 * Math.PI * ring.radius}
-			{@const offset = circumference - (ring.gVal.value / ring.gVal.max) * circumference}
+				<g transform="translate({coords.x2}, {coords.y2})">
+					<text
+						x="-1"
+						y={ring.corner.y === 1 ? 8 : -2}
+						text-anchor="end"
+						fill="currentColor"
+						class="text-[8px] opacity-60"
+					>
+						{ring.gVal.label}:
+					</text>
+					<text
+						x="1"
+						y={ring.corner.y === 1 ? 8 : -2}
+						text-anchor="start"
+						fill="currentColor"
+						class="font-mono text-[8px]"
+					>
+						{ring.gVal.display}
+					</text>
+				</g>
+			{/each}
 
-			<g
-				style="
+			{#each rings as ring}
+				{@const circumference = 2 * Math.PI * ring.radius}
+				{@const offset = circumference - (ring.gVal.value / ring.gVal.max) * circumference}
+
+				<g
+					style="
           transform-origin: 0px 0px; 
           animation: spin-gauge {ring.duration} linear infinite;
           animation-direction: {ring.direction};
-      "
-			>
-				<circle
-					cx="0"
-					cy="0"
-					r={ring.radius}
-					stroke="currentColor"
-					stroke-opacity="0.1"
-					stroke-width={4}
-					fill="none"
-					class="text-accent"
-				/>
-				<circle
-					cx="0"
-					cy="0"
-					r={ring.radius}
-					stroke="currentColor"
-					fill="none"
-					stroke-width={strokeWidth}
-					stroke-dasharray={circumference}
-					stroke-dashoffset={offset}
-					stroke-linecap="butt"
-					class="transition-[stroke-dashoffset] duration-3000"
-				/>
-			</g>
-		{/each}
+        "
+				>
+					<circle
+						cx="0"
+						cy="0"
+						r={ring.radius}
+						stroke="currentColor"
+						stroke-opacity="0.1"
+						stroke-width={4}
+						fill="none"
+						class="text-accent"
+					/>
+
+					<circle
+						cx="0"
+						cy="0"
+						r={ring.radius}
+						stroke="currentColor"
+						fill="none"
+						stroke-width={strokeWidth}
+						stroke-dasharray={circumference}
+						stroke-dashoffset={offset}
+						stroke-linecap="butt"
+						class="transition-[stroke-dashoffset] duration-3000"
+					/>
+				</g>
+			{/each}
+		</g>
 	</svg>
 </div>
 
