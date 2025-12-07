@@ -4,7 +4,7 @@
 
 <img src="./docs/cybermon.gif" width="50%" alt="CyberMon Demo" />
 
-A futuristic hardware monitoring dashboard built with SvelteKit.
+A futuristic mobile hardware monitoring dashboard.
 
 </div>
 
