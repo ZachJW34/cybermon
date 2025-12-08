@@ -33,26 +33,28 @@
 	}
 </script>
 
-{#if hwQuery.isLoading}
-	Loading...
-{:else if hwQuery.isError}
-	<div class="m-2 flex flex-col gap-2 border p-2 text-xs">
-		<div>Error fetching LibreHardware stats from {props.device.url}</div>
-		<div class="bg-primary/20 p-2">> {hwQuery.error}</div>
-		<div class="flex justify-end">
-			<button class="border p-1" onclick={editConfig}>Edit Config</button>
+<div class="flex h-full justify-center">
+	{#if hwQuery.isLoading}
+		Loading...
+	{:else if hwQuery.isError}
+		<div class="m-2 flex flex-col gap-2 border p-2 text-xs">
+			<div>Error fetching LibreHardware stats from {props.device.url}</div>
+			<div class="bg-primary/20 p-2">> {hwQuery.error}</div>
+			<div class="flex justify-end">
+				<button class="border p-1" onclick={editConfig}>Edit Config</button>
+			</div>
 		</div>
-	</div>
-{:else if hwQuery.data}
-	{@const { cpu, gpus, memoryTotal, networks, name: deviceName, hdds } = hwQuery.data}
+	{:else if hwQuery.data}
+		{@const { cpu, gpus, memoryTotal, networks, name: deviceName, hdds } = hwQuery.data}
 
-	<div class="grid h-full min-h-0 max-w-4xl grid-cols-12 grid-rows-12 gap-1 p-2">
-		<CpuWidget {cpu} class="col-span-12 row-span-3 flex flex-col">
-			<Header deviceName={props.device.name || deviceName} />
-		</CpuWidget>
-		<MemoryWidget memory={memoryTotal} class="col-span-2 row-span-6" />
-		<GpuWidget gpu={gpus[0]} class="col-span-10 row-span-6" />
-		<NetworkWidget {networks} class="col-span-6 row-span-3 pr-1" />
-		<StorageWidget {hdds} class="col-span-6 row-span-3 pl-1" />
-	</div>
-{/if}
+		<div class="grid h-full min-h-0 max-w-4xl grid-cols-12 grid-rows-12 gap-1 p-2">
+			<CpuWidget {cpu} class="col-span-12 row-span-3 flex flex-col">
+				<Header deviceName={props.device.name || deviceName} />
+			</CpuWidget>
+			<MemoryWidget memory={memoryTotal} class="col-span-2 row-span-6" />
+			<GpuWidget gpu={gpus[0]} class="col-span-10 row-span-6" />
+			<NetworkWidget {networks} class="col-span-6 row-span-3 pr-1" />
+			<StorageWidget {hdds} class="col-span-6 row-span-3 pl-1" />
+		</div>
+	{/if}
+</div>

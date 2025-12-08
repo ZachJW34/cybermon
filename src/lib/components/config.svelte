@@ -67,7 +67,7 @@
 				</div>
 				<div class="flex justify-end">
 					<div class="flex gap-2">
-						<button type="submit" class="border px-1 text-xs">Save</button>
+						<button type="submit" class="border px-1 text-xs">Select</button>
 						<button
 							type="button"
 							class="border px-1 text-xs"

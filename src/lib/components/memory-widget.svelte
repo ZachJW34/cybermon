@@ -10,14 +10,14 @@
 
 	let { memory, ...restProps }: MemoryWidgetProps = $props();
 
-	let memorySquaresContainer: HTMLDivElement = $state()!;
+	let memorySquaresContainer: HTMLDivElement | undefined = $state();
 	let memorySquares: boolean[] = $derived.by(() => {
 		if (!memorySquaresContainer) return [];
 
-		return updateGrid(memory);
+		return updateGrid(memory, memorySquaresContainer);
 	});
 
-	function updateGrid(memory: MemoryTotal) {
+	function updateGrid(memory: MemoryTotal, memorySquaresContainer: HTMLDivElement) {
 		const styles = getComputedStyle(memorySquaresContainer);
 
 		let { offsetWidth, offsetHeight } = memorySquaresContainer;

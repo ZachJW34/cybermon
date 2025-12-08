@@ -22,9 +22,9 @@
 	}
 
 	.theme-bepop {
-		--color-base: rgba(20 21 32);
-		--color-primary: rgba(172 133 167);
-		--color-accent: rgba(195 117 81);
+		--color-base: #141520;
+		--color-primary: #ac71a7;
+		--color-accent: #c37551;
 	}
 
 	.theme-neuromancer {

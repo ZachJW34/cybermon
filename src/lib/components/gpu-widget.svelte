@@ -64,9 +64,9 @@
 		<div class="flex w-full flex-1 justify-center">
 			<QuadGauge class="h-full w-auto min-w-0 text-accent" values={quadGauge} />
 		</div>
-		<div class="flex flex-wrap content-center items-center gap-2">
+		<div class="flex flex-wrap content-center items-center justify-center gap-2">
 			{#each batteryGauges as bGauge}
-				<div class="grow basis-[47%]">
+				<div class="max-w-md grow basis-[47%]">
 					<BatteryGauge {...bGauge} />
 				</div>
 			{/each}

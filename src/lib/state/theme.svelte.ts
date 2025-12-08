@@ -1,6 +1,6 @@
 export const THEMES = [
-	'theme-bepop',
 	'theme-blade',
+	'theme-bepop',
 	'theme-tron',
 	'theme-neuromancer',
 	'theme-akira'

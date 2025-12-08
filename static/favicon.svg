@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1344)"><rect width="1000" height="1000" fill="#050505"></rect><g transform="matrix(1.7578125,0,0,1.7578125,50,50)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512"><svg width="512" height="512" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200"></rect>
+
+  <defs>
+    <mask id="gauge-cuts">
+      <rect x="0" y="0" width="200" height="200" fill="white"></rect>
+      
+      <g stroke="black" stroke-width="8" fill="black">
+         <path d="M100 100 L200 200 L0 200 Z" stroke="none"></path>
+         
+         <line x1="100" y1="100" x2="29" y2="29"></line>
+         
+         <line x1="100" y1="100" x2="171" y2="29"></line>
+      </g>
+    </mask>
+  <clipPath id="SvgjsClipPath1344"><rect width="1000" height="1000" x="0" y="0" rx="500" ry="500"></rect></clipPath></defs>
+
+  <circle cx="100" cy="100" r="90" stroke="#f8a143" stroke-width="20"></circle>
+  <circle cx="100" cy="100" r="50" stroke="#64d8cb" stroke-width="20" fill="none" mask="url(#gauge-cuts)"></circle>
+  <circle cx="100" cy="100" r="12" fill="#64d8cb"></circle>
+</svg></svg></g></g></svg>

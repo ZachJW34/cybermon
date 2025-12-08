@@ -31,12 +31,15 @@
 		"tailwindcss": "^4.1.17",
 		"typescript": "^5.9.3",
 		"vite": "^7.2.2",
+		"vite-plugin-pwa": "^1.2.0",
 		"vitest": "^4.0.10",
-		"vitest-browser-svelte": "^2.0.1"
+		"vitest-browser-svelte": "^2.0.1",
+		"workbox-window": "^7.4.0"
 	},
 	"dependencies": {
 		"@tanstack/svelte-query": "^6.0.9",
 		"@types/node": "^24.10.1",
+		"@vite-pwa/sveltekit": "^1.1.0",
 		"tailwind-merge": "^3.4.0",
 		"uuid": "^13.0.0"
 	}
