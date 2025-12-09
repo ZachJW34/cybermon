@@ -1,3 +1,5 @@
+import { fetchJson } from './fetch';
+
 export const BYTES_THRESHOLD = 1024;
 
 export type SensorReading = {
@@ -31,13 +33,7 @@ export type CPUInfo = {
 	};
 };
 
-export type MemoryVirtual = {
-	load: SensorValue;
-	used: SensorValue;
-	available: SensorValue;
-};
-
-export type MemoryTotal = {
+export type Memory = {
 	load: SensorValue;
 	used: SensorValue;
 	available: SensorValue;
@@ -91,12 +87,12 @@ export type NetworkInfo = {
 	utilization: SensorValue;
 };
 
-export type LibreSnapshot = {
+export type LHMSnapshot = {
 	name: string;
 	cpu: CPUInfo;
 	gpus: GPUInfo[];
-	memoryVirtual: MemoryVirtual;
-	memoryTotal: MemoryTotal;
+	memoryVirtual: Memory;
+	memoryTotal: Memory;
 	networks: NetworkInfo[];
 	hdds: HDDInfo[];
 };
@@ -278,7 +274,7 @@ const mapGpu = (node: LhmNode): GPUInfo => {
 	};
 };
 
-const mapRam = (node: LhmNode): MemoryTotal => {
+const mapRam = (node: LhmNode): Memory => {
 	return {
 		load: getSensorFromCategory(node, 'Load', 'Memory'),
 		used: getSensorFromCategory(node, 'Data', 'Memory Used'),
@@ -335,10 +331,10 @@ const mapNic = (node: LhmNode): NetworkInfo => {
 	};
 };
 
-export const transformToSnapshot = (payload: LhmPayload): LibreSnapshot => {
+export const transformToSnapshot = (payload: LhmPayload): LHMSnapshot => {
 	const rootComputer = payload.Children[0];
 
-	const snapshot: LibreSnapshot = {
+	const snapshot: LHMSnapshot = {
 		name: rootComputer.Text,
 		cpu: null as any,
 		gpus: [],
@@ -395,3 +391,128 @@ export const transformToSnapshot = (payload: LhmPayload): LibreSnapshot => {
 
 	return snapshot;
 };
+
+export const SIMULATED_DATA_URL = 'SIMULATED';
+
+export async function queryLHM(url: string): Promise<LHMSnapshot> {
+	if (url === SIMULATED_DATA_URL) {
+		return generateFakeData();
+	}
+
+	let payload = await fetchJson<LhmPayload>(url, { timeout: 1000 });
+	return transformToSnapshot(payload);
+}
+
+function generateFakeData(): LHMSnapshot {
+	let cpu: CPUInfo = {
+		name: 'AMD Ryzen 9 5900X',
+		voltage: r_sv(0, 1.5, 'V'),
+		power: r_sv(30.2, 142.2, 'W'),
+		temperature: r_sv(30.3, 78.5, '°C'),
+		clocks: {
+			main: r_sv(0, 4800, 'MHz'),
+			cores: Array.from({ length: 12 }).map((_, idx) => ({
+				name: `CPU ${idx + 1}`,
+				value: r_sv(0, 4800, 'MHz')
+			}))
+		},
+		loads: {
+			main: r_sv(0, 100, '%'),
+			cores: Array.from({ length: 12 }).map((_, idx) => ({
+				name: `CPU ${idx + 1}`,
+				value: r_sv(0, 100, '%')
+			}))
+		}
+	};
+
+	let vramTotal = 24576;
+	let gpu: GPUInfo = {
+		name: 'NVIDIA GeForce RTX 3090',
+		temperature: r_sv(26.4, 70.0, '°C'),
+		clocks: {
+			memory: r_sv(405, 9752, 'MHz'),
+			core: r_sv(0, 1995, 'MHz')
+		},
+		load: r_sv(0, 100, '%'),
+		power: r_sv(17.4, 342.7, 'W'),
+		data: {
+			used: r_sv(0, vramTotal, 'MB'),
+			total: r_sv(vramTotal, vramTotal, 'MB')
+		},
+		fans: Array.from({ length: 2 }).map((_, idx) => ({
+			name: `Fan #${idx + 1}`,
+			value: r_sv(0, 1248, 'RPM')
+		}))
+	};
+
+	let memTotal = 32;
+	let used = r_sv(memTotal / 4, memTotal - memTotal / 4, 'GB');
+	let memoryTotal: Memory = {
+		load: r_sv(0, 100, '%'),
+		available: r_sv(0, memTotal, 'GB', memTotal - used.current.val),
+		used
+	};
+
+	used = r_sv(0, memTotal, 'GB');
+	let memoryVirtual: Memory = {
+		load: r_sv(0, 100, '%'),
+		available: r_sv(0, memTotal, 'GB', memTotal - used.current.val),
+		used
+	};
+
+	let network: NetworkInfo = {
+		name: 'Ethernet',
+		throughput: {
+			uploadSpeed: r_sv(0, BYTES_THRESHOLD * BYTES_THRESHOLD, 'KB/s'),
+			downloadSpeed: r_sv(0, BYTES_THRESHOLD * BYTES_THRESHOLD, 'KB/s')
+		},
+		data: {
+			uploaded: r_sv(0, 34.6, 'GB', 34.6),
+			downloaded: r_sv(0, 120.4, 'GB', 120.4)
+		},
+		utilization: r_sv(0, 100, '%')
+	};
+
+	let hdd: HDDInfo = {
+		name: 'Samsung SSD 980 PRO 1TB',
+		temperature: r_sv(0, 51, '°C'),
+		load: {
+			usedSpace: r_sv(0, 100, '%'),
+			readActivity: r_sv(0, 100, '%'),
+			writeActivity: r_sv(0, 100, '%'),
+			totalAcitivy: r_sv(0, 100, '%')
+		},
+		data: {
+			read: r_sv(0, 51225, 'GB', 51225.0),
+			written: r_sv(0, 34389, 'GB', 34389.0)
+		},
+		throughput: {
+			read: r_sv(0, 2640.1, 'MB/s'),
+			write: r_sv(0, 920.8, 'MB/s')
+		}
+	};
+
+	return {
+		name: SIMULATED_DATA_URL,
+		cpu,
+		gpus: [gpu],
+		memoryTotal,
+		memoryVirtual,
+		networks: [network],
+		hdds: [hdd]
+	};
+}
+
+function r_sv(min: number, max: number, unit: string, current?: number): SensorValue {
+	return {
+		min: sr(min, unit),
+		max: sr(max, unit),
+		current: sr(current || randomFromMinMax(min, max), unit)
+	};
+}
+
+const sr = (val: number, unit: string): SensorReading => ({ val, unit });
+
+function randomFromMinMax(min: number, max: number) {
+	return min + Math.random() * (max - min);
+}

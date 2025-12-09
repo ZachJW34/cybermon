@@ -1,3 +1,4 @@
+import { SIMULATED_DATA_URL } from '$lib/utils/libre-hardware';
 import { v7 } from 'uuid';
 
 export type Device = {
@@ -30,12 +31,13 @@ export function getDevicesLS(): Device[] {
 }
 
 class ConfigState {
-	selectedDeviceId: string | null = $state(null);
+	selectedDevice: Device | null = $state(null);
 	devices: Device[] = $state([]);
 
 	constructor() {
-		this.selectedDeviceId = localStorage.getItem('selected-device-id');
 		this.devices = getDevicesLS();
+		let selectedDeviceId = localStorage.getItem('selected-device-id');
+		this.selectedDevice = this.devices.find((d) => d.id === selectedDeviceId) || null;
 	}
 
 	updateDevice(updated: Device) {
@@ -61,13 +63,20 @@ class ConfigState {
 		localStorage.setItem('devices', JSON.stringify(this.devices));
 	}
 
-	setSelectedDevice(id: string | null) {
-		this.selectedDeviceId = id;
-		if (!id) {
+	setSelectedDevice(device: Device | null) {
+		this.selectedDevice = device;
+		if (!device) {
 			localStorage.removeItem('selected-device-id');
 		} else {
-			localStorage.setItem('selected-device-id', id);
+			localStorage.setItem('selected-device-id', device.id);
 		}
+	}
+
+	showSimulated() {
+		this.selectedDevice = {
+			url: SIMULATED_DATA_URL,
+			id: v7()
+		};
 	}
 }
 

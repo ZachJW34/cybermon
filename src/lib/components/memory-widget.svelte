@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { MemoryTotal } from '$lib/utils/libre-hardware';
+	import type { Memory } from '$lib/utils/libre-hardware';
 	import type { RestProps } from '$lib/utils/types';
 	import { twMerge } from 'tailwind-merge';
 	import WidgetTitle from './widget-title.svelte';
 
 	export type MemoryWidgetProps = {
-		memory: MemoryTotal;
+		memory: Memory;
 	} & RestProps;
 
 	let { memory, ...restProps }: MemoryWidgetProps = $props();
@@ -17,7 +17,7 @@
 		return updateGrid(memory, memorySquaresContainer);
 	});
 
-	function updateGrid(memory: MemoryTotal, memorySquaresContainer: HTMLDivElement) {
+	function updateGrid(memory: Memory, memorySquaresContainer: HTMLDivElement) {
 		const styles = getComputedStyle(memorySquaresContainer);
 
 		let { offsetWidth, offsetHeight } = memorySquaresContainer;
@@ -43,7 +43,7 @@
 		return generateRandomMemorySquares(memory, count);
 	}
 
-	function generateRandomMemorySquares(memory: MemoryTotal, length = 100) {
+	function generateRandomMemorySquares(memory: Memory, length = 100) {
 		let ratio = memory.used.current.val / (memory.available.current.val + memory.used.current.val);
 		let squares = Array.from({ length }).map(() => Math.random() < ratio);
 
@@ -60,7 +60,7 @@
 		{#each memorySquares as highlighted}
 			<div
 				class={[
-					'h-1 w-1 bg-accent transition-opacity duration-3000',
+					'h-1 w-1 bg-accent transition-opacity duration-1000 ease-linear',
 					{ 'opacity-100': highlighted, 'opacity-30': !highlighted }
 				]}
 			></div>

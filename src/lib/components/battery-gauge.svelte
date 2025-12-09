@@ -20,7 +20,10 @@
 	<div class="flex gap-0.5">
 		{#each { length: barCount }, idx}
 			<div
-				class={['h-4 grow border border-primary/30', [idx <= numFilled ? 'bg-accent' : 'bg-base']]}
+				class={[
+					'h-4 grow border border-primary/30 transition-[background-color] duration-1000 ease-linear',
+					[idx <= numFilled ? 'bg-accent' : 'bg-base']
+				]}
 			></div>
 		{/each}
 	</div>

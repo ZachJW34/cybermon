@@ -35,8 +35,8 @@
 
 	.theme-akira {
 		--color-base: #0f0505;
-		--color-primary: #ff2a2a;
-		--color-accent: #ffc800;
+		--color-primary: #ffc800;
+		--color-accent: #ff2a2a;
 	}
 
 	:root,

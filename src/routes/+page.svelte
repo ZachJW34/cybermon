@@ -2,12 +2,10 @@
 	import HardwareMonitor from '$lib/components/hardware-monitor.svelte';
 	import { configState } from '$lib/state/config.svelte';
 	import Config from '$lib/components/config.svelte';
-
-	let device = $derived(configState.devices.find((d) => d.id === configState.selectedDeviceId));
 </script>
 
-{#if !device}
+{#if !configState.selectedDevice}
 	<Config />
 {:else}
-	<HardwareMonitor {device} />
+	<HardwareMonitor device={configState.selectedDevice} />
 {/if}

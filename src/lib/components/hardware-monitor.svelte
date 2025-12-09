@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { fetchJson } from '$lib/utils/fetch';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { transformToSnapshot, type LhmPayload } from '$lib/utils/libre-hardware';
+	import { queryLHM } from '$lib/utils/libre-hardware';
 	import CpuWidget from '$lib/components/cpu-widget.svelte';
 	import Header from '$lib/components/header.svelte';
 	import MemoryWidget from '$lib/components/memory-widget.svelte';
@@ -14,17 +13,13 @@
 
 	const hwQuery = createQuery(() => ({
 		queryKey: [`libre-hardware-${props.device.url}`],
-		queryFn: () => fetchJson<LhmPayload>(props.device.url, { timeout: 1000 }),
+		queryFn: async () => queryLHM(props.device.url),
 		refetchInterval: (query) => {
 			if (query.state.status === 'error') {
 				return false;
 			}
 
 			return 3000;
-		},
-		select(lhm) {
-			const snapshot = transformToSnapshot(lhm);
-			return snapshot;
 		}
 	}));
 
@@ -33,7 +28,7 @@
 	}
 </script>
 
-<div class="flex h-full justify-center">
+<div class="flex h-full justify-center pb-4">
 	{#if hwQuery.isLoading}
 		Loading...
 	{:else if hwQuery.isError}
