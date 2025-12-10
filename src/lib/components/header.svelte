@@ -7,7 +7,7 @@
 	};
 
 	function showConfig() {
-		configState.setSelectedDevice(null);
+		configState.setSelectedDeviceId(null);
 	}
 
 	let { deviceName }: HeaderProps = $props();

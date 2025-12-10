@@ -24,7 +24,7 @@
 	}));
 
 	function editConfig() {
-		configState.setSelectedDevice(null);
+		configState.setSelectedDeviceId(null);
 	}
 </script>
 

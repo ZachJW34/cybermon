@@ -130,3 +130,7 @@
 		3px 100%;
 	pointer-events: none;
 }
+
+button {
+	cursor: pointer;
+}
