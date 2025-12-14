@@ -356,38 +356,23 @@ export const transformToSnapshot = (payload: LhmPayload): LHMSnapshot => {
 
 	for (const hardware of rootComputer.Children) {
 		const id = hardware.HardwareId || '';
-		const img = hardware.ImageURL || '';
 
-		// CPU (Identified by /cpu path or cpu icon)
-		if (id.includes('/cpu') || img.includes('cpu.png')) {
+		if (id.includes('/intelcpu') || id.includes('/amdcpu')) {
 			snapshot.cpu = mapCpu(hardware);
-		}
-
-		// GPU (Identified by /gpu or nvidia/amd icon)
-		else if (id.includes('/gpu') || img.includes('nvidia.png') || img.includes('ati.png')) {
+		} else if (id.includes('/gpu')) {
 			snapshot.gpus.push(mapGpu(hardware));
-		}
-
-		// RAM - Total Physical
-		else if (id === '/ram' || (img.includes('ram.png') && hardware.Text === 'Total Memory')) {
+		} else if (id === '/ram') {
 			snapshot.memoryTotal = mapRam(hardware);
-		}
-
-		// RAM - Virtual
-		else if (id === '/vram' || hardware.Text === 'Virtual Memory') {
+		} else if (id === '/vram') {
 			snapshot.memoryVirtual = mapRam(hardware);
-		}
-
-		// Storage (NVMe / HDD)
-		else if (id.includes('/nvme') || id.includes('/hdd') || img.includes('hdd.png')) {
+		} else if (id.includes('/nvme') || id.includes('/hdd')) {
 			snapshot.hdds.push(mapHdd(hardware));
-		}
-
-		// Network (NIC) - Exclude specific ones if needed, currently taking all
-		else if (id.includes('/nic') || img.includes('nic.png')) {
+		} else if (id.includes('/nic')) {
 			snapshot.networks.push(mapNic(hardware));
 		}
 	}
+
+	console.log({ snapshot });
 
 	return snapshot;
 };
