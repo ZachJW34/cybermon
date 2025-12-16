@@ -66,7 +66,7 @@
 			></div>
 		{/each}
 	</div>
-	<div class="text-xs text-primary">
+	<div class="text-xs font-bold text-primary/70">
 		{Math.round(memory.used.current.val)}/{Math.round(
 			memory.used.current.val + memory.available.current.val
 		)} GB

@@ -45,7 +45,7 @@
 				</div>
 				<div class="h-full flex-1 border border-primary/50 bg-base">
 					<div
-						class="h-full bg-primary transition-[width] duration-3000"
+						class="h-full bg-accent transition-[width] duration-3000"
 						style="width: {activeNetwork.utilization.current.val}%"
 					></div>
 				</div>

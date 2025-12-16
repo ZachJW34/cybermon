@@ -46,19 +46,19 @@
 				<span>{Math.round(cpu.temperature.current.val)}</span>
 				<span class="inline-flex w-4 -tracking-[0.2em]">°C</span>
 			</div>
-			<span class="text-xs text-primary/50">Temp</span>
+			<span class="text-xs text-primary/70">Temp</span>
 		</div>
 		<div class="flex w-22 flex-col items-center justify-center border-x border-primary/30">
 			<span class="text-lg leading-4 text-accent">
 				{Math.round(cpu.loads.main.current.val)}%
 			</span>
-			<span class="text-xs text-primary/50">Load</span>
+			<span class="text-xs text-primary/70">Load</span>
 		</div>
 		<div class="flex w-22 flex-col items-center justify-center border-x border-base">
 			<span class="text-lg leading-4 text-accent">
 				{Math.round(cpu.power.current.val)}W
 			</span>
-			<span class="text-xs text-primary/50">Power</span>
+			<span class="text-xs text-primary/70">Power</span>
 		</div>
 
 		<div class="relative col-span-5 flex w-full items-center p-2">
@@ -68,7 +68,7 @@
 			<div class="absolute right-2 -bottom-2 z-1 text-xs text-primary/75">
 				<span>{(cpu.clocks.main.max.val / 1000).toFixed(1)}GHz</span>
 			</div>
-			<div class="absolute -top-2 right-2 z-1 text-xs text-primary/75">
+			<div class="absolute -top-2 right-2 z-1 text-xs text-accent">
 				<span>Current: {(cpu.clocks.main.current.val / 1000).toFixed(1)}GHz</span>
 			</div>
 

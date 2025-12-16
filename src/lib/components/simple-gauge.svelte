@@ -14,7 +14,7 @@
 </script>
 
 <div class="relative flex flex-1 flex-col items-center justify-center">
-	<h2 class="text-sm">{props.label}</h2>
+	<h2 class="text-sm font-bold text-primary/70">{props.label}</h2>
 
 	<div class="relative flex h-16 w-16 items-center justify-center">
 		<svg class="rotate-[-215deg] transform" viewBox="0 0 120 120">

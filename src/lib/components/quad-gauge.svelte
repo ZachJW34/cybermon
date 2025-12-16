@@ -52,7 +52,7 @@
 		{
 			radius: 20,
 			duration: '15s',
-			direction: 'normal',
+			direction: 'reverse',
 			gVal: values[2],
 			corner: { x: 1, y: 1 }
 		},
@@ -69,7 +69,7 @@
 	function getConnectorCoords(ring: (typeof rings)[0]) {
 		const { x: dirX, y: dirY } = ring.corner;
 
-		const startRadius = ring.radius + 4;
+		const startRadius = ring.radius + 2;
 		const x1 = dirX * startRadius * dx;
 		const y1 = dirY * startRadius * dy;
 
@@ -99,8 +99,8 @@
 					y1={coords.y1}
 					x2={coords.x2}
 					y2={coords.y2}
-					class="stroke-current stroke-[1px] text-accent"
-					stroke-dasharray="3 3"
+					class="stroke-current stroke-[1px] text-primary"
+					stroke-dasharray="2"
 				/>
 
 				<g transform="translate({coords.x2}, {coords.y2})">
@@ -109,7 +109,7 @@
 						y={ring.corner.y === 1 ? 8 : -2}
 						text-anchor="end"
 						fill="currentColor"
-						class="text-[8px] opacity-60"
+						class="text-[8px] text-primary opacity-60"
 					>
 						{ring.gVal.label}:
 					</text>
@@ -141,10 +141,10 @@
 						cy="0"
 						r={ring.radius}
 						stroke="currentColor"
-						stroke-opacity="0.1"
+						stroke-opacity="0.2"
 						stroke-width={4}
 						fill="none"
-						class="text-accent"
+						class="text-primary"
 					/>
 
 					<circle

@@ -27,7 +27,7 @@
 	$effect(() => {
 		const lines = visibleLines;
 
-		let interval: number;
+		let interval: any;
 		untrack(() => {
 			trackingIdxs = Array.from({ length: lines.length }).fill(0) as number[];
 			let count = -1;
@@ -59,12 +59,12 @@
 <div
 	class="flex flex-1 border-t-4 border-b-4 border-l-4 border-primary/30 bg-base pl-1 text-xs font-bold"
 >
-	<div class="my-1 flex-1 text-accent">
+	<div class="my-1 flex-1 text-primary">
 		{#each visibleLines as [left], idx}
 			<div>{left.slice(0, trackingIdxs[idx])}</div>
 		{/each}
 	</div>
-	<div class="my-1 flex h-full w-9 flex-col items-end bg-primary px-1 text-base">
+	<div class="my-1 flex h-full w-9 flex-col items-end bg-accent px-1 text-base">
 		{#each visibleLines as [left, right], idx}
 			<div class="text-xs">
 				{left.length > trackingIdxs[idx] ? `${randomNums[idx]}%` : right}

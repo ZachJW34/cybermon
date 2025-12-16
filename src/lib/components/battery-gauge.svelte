@@ -12,19 +12,21 @@
 </script>
 
 <div class="flex w-full flex-col">
-	<div class="flex justify-between text-xs font-bold">
+	<div class="flex justify-between text-xs font-bold text-primary/70">
 		<span>{props.label}:</span>
-		<span class="text-primary/70">{props.displayVal}</span>
+		<span>{props.displayVal}</span>
 	</div>
 
 	<div class="flex gap-0.5">
 		{#each { length: barCount }, idx}
-			<div
-				class={[
-					'h-4 grow border border-primary/30 transition-[background-color] duration-1000 ease-linear',
-					[idx <= numFilled ? 'bg-accent' : 'bg-base']
-				]}
-			></div>
+			<div class="h-4 grow border border-primary/30 transition-[opacity] duration-1000 ease-linear">
+				<div
+					class={[
+						'flex h-full w-full bg-accent transition-[opacity] duration-1000 ease-linear',
+						[idx <= numFilled ? 'opacity-100' : 'opacity-0']
+					]}
+				></div>
+			</div>
 		{/each}
 	</div>
 </div>
