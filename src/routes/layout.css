@@ -34,25 +34,40 @@
 	}
 
 	.theme-akira {
-		--color-base: #0f0505;
-		--color-primary: #ffc800;
-		--color-accent: #ff2a2a;
+		--color-base: #000000;
+		--color-primary: #f0131e;
+		--color-accent: #ffd700;
 	}
 
 	:root,
 	.theme-blade,
-	.theme-tron {
+	.theme-tron,
+	.theme-neuromancer,
+	.theme-akira,
+	.theme-bepop {
 		--color-primary-50: color-mix(in srgb, var(--color-primary), white 90%);
 		--color-primary-100: color-mix(in srgb, var(--color-primary), white 80%);
 		--color-primary-200: color-mix(in srgb, var(--color-primary), white 60%);
 		--color-primary-300: color-mix(in srgb, var(--color-primary), white 40%);
 		--color-primary-400: color-mix(in srgb, var(--color-primary), white 20%);
 		--color-primary-500: var(--color-primary);
-		--color-primary-600: color-mix(in srgb, var(--color-primary), black 10%);
-		--color-primary-700: color-mix(in srgb, var(--color-primary), black 30%);
-		--color-primary-800: color-mix(in srgb, var(--color-primary), black 50%);
-		--color-primary-900: color-mix(in srgb, var(--color-primary), black 70%);
-		--color-primary-950: color-mix(in srgb, var(--color-primary), black 85%);
+		--color-primary-600: color-mix(in srgb, var(--color-primary), var(--color-base) 10%);
+		--color-primary-700: color-mix(in srgb, var(--color-primary), var(--color-base) 30%);
+		--color-primary-800: color-mix(in srgb, var(--color-primary), var(--color-base) 50%);
+		--color-primary-900: color-mix(in srgb, var(--color-primary), var(--color-base) 70%);
+		--color-primary-950: color-mix(in srgb, var(--color-primary), var(--color-base) 85%);
+
+		--color-accent-50: color-mix(in srgb, var(--color-accent), white 90%);
+		--color-accent-100: color-mix(in srgb, var(--color-accent), white 80%);
+		--color-accent-200: color-mix(in srgb, var(--color-accent), white 60%);
+		--color-accent-300: color-mix(in srgb, var(--color-accent), white 40%);
+		--color-accent-400: color-mix(in srgb, var(--color-accent), white 20%);
+		--color-accent-500: var(--color-accent);
+		--color-accent-600: color-mix(in srgb, var(--color-accent), var(--color-base) 10%);
+		--color-accent-700: color-mix(in srgb, var(--color-accent), var(--color-base) 30%);
+		--color-accent-800: color-mix(in srgb, var(--color-accent), var(--color-base) 50%);
+		--color-accent-900: color-mix(in srgb, var(--color-accent), var(--color-base) 70%);
+		--color-accent-950: color-mix(in srgb, var(--color-accent), var(--color-base) 85%);
 	}
 
 	body {
@@ -88,27 +103,18 @@
 	--color-primary-800: var(--color-primary-800);
 	--color-primary-900: var(--color-primary-900);
 	--color-primary-950: var(--color-primary-950);
-}
 
-:root,
-.theme-blade,
-.theme-tron {
-	/* Lighter shades */
-	--color-primary-50: color-mix(in srgb, var(--color-primary), white 90%);
-	--color-primary-100: color-mix(in srgb, var(--color-primary), white 80%);
-	--color-primary-200: color-mix(in srgb, var(--color-primary), white 60%);
-	--color-primary-300: color-mix(in srgb, var(--color-primary), white 40%);
-	--color-primary-400: color-mix(in srgb, var(--color-primary), white 20%);
-
-	/* Base */
-	--color-primary-500: var(--color-primary);
-
-	/* Darker shades */
-	--color-primary-600: color-mix(in srgb, var(--color-primary), black 10%);
-	--color-primary-700: color-mix(in srgb, var(--color-primary), black 30%);
-	--color-primary-800: color-mix(in srgb, var(--color-primary), black 50%);
-	--color-primary-900: color-mix(in srgb, var(--color-primary), black 70%);
-	--color-primary-950: color-mix(in srgb, var(--color-primary), black 85%);
+	--color-accent-50: var(--color-accent-50);
+	--color-accent-100: var(--color-accent-100);
+	--color-accent-200: var(--color-accent-200);
+	--color-accent-300: var(--color-accent-300);
+	--color-accent-400: var(--color-accent-400);
+	--color-accent-500: var(--color-accent-500);
+	--color-accent-600: var(--color-accent-600);
+	--color-accent-700: var(--color-accent-700);
+	--color-accent-800: var(--color-accent-800);
+	--color-accent-900: var(--color-accent-900);
+	--color-accent-950: var(--color-accent-950);
 }
 
 /* 4. The "Dot Grid" Background */
@@ -120,11 +126,11 @@
 
 /* 5. The CRT Scanline Overlay */
 .crt-overlay {
-	background: 
-    /* The horizontal scanlines */
+	background:
+		/* The horizontal scanlines */
 		linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
 		/* The RGB sub-pixel separation effect */
-			linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+		linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
 	background-size:
 		100% 2px,
 		3px 100%;

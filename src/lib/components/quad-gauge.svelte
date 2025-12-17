@@ -52,7 +52,7 @@
 		{
 			radius: 20,
 			duration: '15s',
-			direction: 'reverse',
+			direction: 'normal',
 			gVal: values[2],
 			corner: { x: 1, y: 1 }
 		},
@@ -60,7 +60,7 @@
 		{
 			radius: 10,
 			duration: '10s',
-			direction: 'normal',
+			direction: 'reverse',
 			gVal: values[3],
 			corner: { x: -1, y: 1 }
 		}
@@ -69,7 +69,7 @@
 	function getConnectorCoords(ring: (typeof rings)[0]) {
 		const { x: dirX, y: dirY } = ring.corner;
 
-		const startRadius = ring.radius + 2;
+		const startRadius = ring.radius;
 		const x1 = dirX * startRadius * dx;
 		const y1 = dirY * startRadius * dy;
 
@@ -99,8 +99,8 @@
 					y1={coords.y1}
 					x2={coords.x2}
 					y2={coords.y2}
-					class="stroke-current stroke-[1px] text-primary"
-					stroke-dasharray="2"
+					class="stroke-current stroke-[0.5px] text-primary-900"
+					stroke-dasharray="1.5"
 				/>
 
 				<g transform="translate({coords.x2}, {coords.y2})">
@@ -127,7 +127,9 @@
 
 			{#each rings as ring}
 				{@const circumference = 2 * Math.PI * ring.radius}
-				{@const offset = circumference - (ring.gVal.value / ring.gVal.max) * circumference}
+				{@const maxVisible = 0.85}
+				{@const offset =
+					circumference - (ring.gVal.value / ring.gVal.max) * (circumference * maxVisible)}
 
 				<g
 					style="
@@ -141,10 +143,22 @@
 						cy="0"
 						r={ring.radius}
 						stroke="currentColor"
-						stroke-opacity="0.2"
+						stroke-width="0.5"
+						fill="none"
+						class="text-primary-950"
+						style="animation: pulse-stroke 3s ease-in-out infinite;"
+					/>
+					<circle
+						cx="0"
+						cy="0"
+						r={ring.radius}
+						stroke="currentColor"
 						stroke-width={4}
 						fill="none"
-						class="text-primary"
+						class="text-primary-950"
+						stroke-linecap="butt"
+						stroke-dasharray={circumference}
+						stroke-dashoffset={circumference * (1 - maxVisible)}
 					/>
 
 					<circle
@@ -172,6 +186,16 @@
 		}
 		to {
 			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes -global-pulse-stroke {
+		0%,
+		100% {
+			opacity: 0;
+		}
+		50% {
+			opacity: 1;
 		}
 	}
 </style>

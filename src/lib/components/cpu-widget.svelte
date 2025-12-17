@@ -28,7 +28,7 @@
 
 	<div class="flex h-full flex-1 items-end justify-between gap-1 opacity-90">
 		{#each cpuCores as core}
-			<div class="flex h-full w-full flex-col justify-end border border-primary bg-base">
+			<div class="flex h-full w-full flex-col justify-end border border-primary-800 bg-base">
 				<div
 					class={[
 						'w-full bg-accent transition-[height] duration-3000',
@@ -72,8 +72,8 @@
 				<span>Current: {(cpu.clocks.main.current.val / 1000).toFixed(1)}GHz</span>
 			</div>
 
-			<div class="relative h-6 w-full border border-primary/30 bg-base">
-				<div class="absolute top-1 right-[20%] bottom-1 left-[20%] bg-primary/10"></div>
+			<div class="relative h-6 w-full border border-primary-800 bg-base">
+				<div class="absolute top-1 right-[20%] bottom-1 left-[20%] bg-primary-950"></div>
 
 				<div
 					class="absolute top-0 bottom-0 w-1 bg-accent shadow-[0_0_10px_rgba(255,165,0,0.8)] transition-[left] duration-3000"

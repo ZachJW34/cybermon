@@ -8,8 +8,6 @@ import { join as pathJoin } from 'node:path';
 
 export default defineConfig((config) => {
 	const dotEnv = loadEnv(config.mode, process.cwd(), 'VITE_');
-	// const globPatterns = [join(process.cwd(), '**/*.{js,css,html,ico,png,svg}')];
-	// console.log({ globPatterns });
 	const userConfig = <UserConfig>{
 		plugins: [
 			tailwindcss(),

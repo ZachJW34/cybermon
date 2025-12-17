@@ -194,9 +194,9 @@ const mapCpu = (node: LhmNode): CPUInfo => {
 
 	const coreClocks = clockCat
 		? findNodes(clockCat, /Core #\d+$/).map((n) => ({
-				name: n.Text,
-				value: parseSensorValue(n.Min, n.Value, n.Max)
-			}))
+			name: n.Text,
+			value: parseSensorValue(n.Min, n.Value, n.Max)
+		}))
 		: [];
 
 	let mainClockParsed: SensorValue;
@@ -220,9 +220,9 @@ const mapCpu = (node: LhmNode): CPUInfo => {
 	const mainLoad = findNode(loadCat!, 'CPU Total') || findNode(loadCat!, 'Total Activity');
 	const coreLoads = loadCat
 		? findNodes(loadCat, /Core #\d+/).map((n) => ({
-				name: n.Text,
-				value: parseSensorValue(n.Min, n.Value, n.Max)
-			}))
+			name: n.Text,
+			value: parseSensorValue(n.Min, n.Value, n.Max)
+		}))
 		: [];
 
 	return {
@@ -252,9 +252,9 @@ const mapGpu = (node: LhmNode): GPUInfo => {
 	const fanCat = findNode(node, 'Fans');
 	const fans = fanCat
 		? fanCat.Children.map((f) => ({
-				name: f.Text,
-				value: parseSensorValue(f.Min, f.Value, f.Max)
-			}))
+			name: f.Text,
+			value: parseSensorValue(f.Min, f.Value, f.Max)
+		}))
 		: [];
 
 	return {
@@ -371,8 +371,6 @@ export const transformToSnapshot = (payload: LhmPayload): LHMSnapshot => {
 			snapshot.networks.push(mapNic(hardware));
 		}
 	}
-
-	console.log({ snapshot });
 
 	return snapshot;
 };

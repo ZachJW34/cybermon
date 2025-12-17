@@ -1,14 +1,15 @@
 import { BYTES_THRESHOLD, type SensorReading, type SensorValue } from './libre-hardware';
 
 export function formatThroughput(sr: SensorReading): { val: string; unit: string } {
-	if (sr.unit === 'KB/s' && sr.val >= 999) {
-		sr.val = sr.val / BYTES_THRESHOLD;
-		sr.unit = 'MB/s';
+	let formatted = structuredClone(sr);
+	if (formatted.unit === 'KB/s' && formatted.val >= 999) {
+		formatted.val = formatted.val / BYTES_THRESHOLD;
+		formatted.unit = 'MB/s';
 	}
 
-	if (sr.val < 10) {
-		return { val: sr.val.toFixed(1), unit: sr.unit };
+	if (formatted.val < 10) {
+		return { val: formatted.val.toFixed(1), unit: formatted.unit };
 	}
 
-	return { val: sr.val.toFixed(), unit: sr.unit };
+	return { val: formatted.val.toFixed(), unit: formatted.unit };
 }
